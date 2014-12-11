@@ -1,6 +1,14 @@
 ECE382_Lab8
 ===========
 
+## *Functionality Update*
+
+|Functionality|Status|Date Completed|Checked by|
+|:-:|:-:|:-:|:-:|
+| Required | Complete | 11 Dec 14 @ 0700 | Dr. Coulston |
+| B | Complete | 11 Dec 14 @ 0700 | Dr. Coulston |
+| A | Complete | 11 Dec 14 @ 0700 | Dr. York |
+
 ## Overview
 Use the previous laboratory assignments (both the robot and the code) to program my robot to autonomously navigate through a maze.
 
@@ -48,3 +56,22 @@ For the prelab, I will simply use Lab 7 code which lit up the LEDs using the sen
     // right right
 // else move forward
 ```
+
+## Lab
+
+### Required Functionality
+I began by copying over the code from lab 7 and retesting the LEDs. As expected, the LEDs lighted up when I placed an object in front of the transmitter/receiver pair. Next, I created a new main.c and implementation.c  files. 
+#### Required Functionality [Debugging]
+
+### B Functionality
+#### B Functionality [Debugging]
+
+### A Functionality
+#### A Functionality [Debugging]
+
+### Bonus Functionality
+#### Bonus Functionality [Debugging]
+
+
+## Documentation
+* C2C Sean Bapty gave me advice to use my `stop()` methods in between other movement calls

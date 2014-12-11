@@ -9,19 +9,16 @@
 #include "msp430g2553.h"
 #include "robot_2.h"
 
-unsigned int c, c1, c2, c3;
-unsigned int r, r1, r2, r3;
-unsigned int l, l1, l2, l3;
+// MEM value holders for center, right, and left sensors
+unsigned int c, r;
 
-unsigned int centerCutoff = 572;//572;//562;//0x0200;//0x0232;
-unsigned int rightCutoff = 750;
-unsigned int leftCutoff = 700;
-
-unsigned int rFar = 690;//740;// 700;
-unsigned int rClose = 690;//740;// 700;
-unsigned int cClose = 562;//562;// 572;
+// the threshold values for the sensors
+unsigned int rFar = 690;		// voltage at which the robot gets too far (right)
+unsigned int rClose = 690;		// voltage at which the robot gets too close (right)
+unsigned int cClose = 562;		// voltage at which the robot gets too close (center)
 
 //----------------------------------------------------------------------
+// 	MAIN
 //----------------------------------------------------------------------
 int main(void) {
 	initMSP430();							// Setup MSP to process IR and buttons
@@ -70,29 +67,30 @@ int main(void) {
 	TA1CCR2 = 40;//TA1CCR0-TA1CCR1;
 	TA1CCTL2 = OUTMOD_7;					// set TACCTL1 to Reset / Set mode
 
+	// infinite loop
 	while(1) {
 
 		// A FUNCTIONALITY //
-		c = centerSensor();
-		r = rightSensor();
+		c = centerSensor();					// store the center sensor MEM
+		r = rightSensor();					// store the right sensor MEM
 
-		if(c > cClose) {					// center sense
+		if(c > cClose) {					// center sensor is close to a wall in the front
 			moveForward();
 			_delay_cycles(100);
 			rotateLeft();
 			_delay_cycles(500);
-		} else if(r > rFar && r < rClose) {	// boundary
+		} else if(r > rFar && r < rClose) {	// boundary between too far and too close to the right wall
 			moveForward();
 			_delay_cycles(1000);
 		}
-		else if(r > rClose) {				// right sense
+		else if(r > rClose) {				// right sensor too close
 			rotateLeft();
 			_delay_cycles(500);
 			moveForward();
 			_delay_cycles(500);
 			rotateLeft();
 			_delay_cycles(100);
-		} else if(r < rFar) {				// far from the right wall
+		} else if(r < rFar) {				// too far from the right wall
 			moveForward();
 			_delay_cycles(800);
 			rotateRight();

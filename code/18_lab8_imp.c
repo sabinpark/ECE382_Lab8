@@ -10,6 +10,9 @@
 #include "msp430g2553.h"
 #include "robot_2.h"
 
+/*
+ * initializes the msp430
+ */
 void initMSP430() {
 
 	IFG1=0; 							// clear interrupt flag1
@@ -35,6 +38,9 @@ void initMSP430() {
 	_enable_interrupt();
 }
 
+/*
+ * store the MEM value for the center sensor
+ */
 unsigned int centerSensor() {
 	ADC10CTL0 = 0;
 	ADC10CTL1 = INCH_4 | ADC10DIV_3 ;						// Make P1.3 analog input
@@ -46,6 +52,9 @@ unsigned int centerSensor() {
 	return ADC10MEM;
 }
 
+/*
+ * store the MEM value for the right sensor
+ */
 unsigned int rightSensor() {
 	ADC10CTL0 = 0;
 	ADC10CTL1 = INCH_5 | ADC10DIV_3 ;						// Make P1.3 analog input
@@ -57,6 +66,9 @@ unsigned int rightSensor() {
 	return ADC10MEM;
 }
 
+/*
+ * store the MEM value for the left sensor
+ */
 unsigned int leftSensor() {
 	ADC10CTL0 = 0;
 	ADC10CTL1 = INCH_3 | ADC10DIV_3 ;						// Make P1.3 analog input
@@ -87,7 +99,9 @@ void go() {
 	RIGHT_ENABLE;
 }
 
-
+/*
+ * moves the robot forward
+ */
 void moveForward() {
 	go();
 	LEFT_OM_HI;
@@ -137,45 +151,6 @@ void rotateLeft() {
 	GREEN_OFF; 						// green LED OFF
 }
 
-void rotateLeft2(int deg_delay) {
-	go();
-
-	LEFT_OM_LO;
-	RIGHT_OM_HI;
-
-	// LEFT MOTOR
-	LEFT_SET_CW;
-	// RIGHT MOTOR
-	RIGHT_SET_CW;
-
-	RED_ON;							// red LED ON
-	GREEN_OFF; 						// green LED OFF
-
-	int i;
-
-	switch(deg_delay) {
-	case 15:
-		_delay_cycles(DELAY_15);
-		break;
-	case 45:
-		_delay_cycles(DELAY_45);
-		break;
-	case 90:
-		_delay_cycles(DELAY_90);
-		break;
-	case 180:
-		_delay_cycles(DELAY_180);
-		break;
-	case 360:
-		_delay_cycles(DELAY_360);
-		break;
-	default:
-		for(i=0; i<deg_delay; i++) {
-			_delay_cycles(DELAY_360/DEG_360);
-		}
-	}
-}
-
 /*
  * turns the robot CW
  */
@@ -192,65 +167,4 @@ void rotateRight() {
 
 	GREEN_ON;						// green LED ON
 	RED_OFF;						// red LED OFF
-}
-
-void driveNE() {
-	go();
-
-	// LEFT MOTOR
-	LEFT_SET_CCW;
-	LEFT_OM_HI;
-
-	// RIGHT MOTOR
-	RIGHT_SET_CW;
-	RIGHT_OM_LO;
-
-	GREEN_ON;						// green LED ON
-	RED_OFF;						// red LED OFF
-
-	//_delay_cycles(LONG_DELAY/2);
-}
-
-/*
- * updates the timer signal lengths
- */
-void updateSignal() {
-	TA1CCR2 = TA1CCR0-TA1CCR1;
-}
-
-/*
- * increase the duty cycle
- */
-void increaseDC() {
-	if(TA1CCR1 < 90) {
-		TA1CCR1 += 5;
-	}
-	updateSignal();
-
-	GREEN_ON;						// green LED ON
-	RED_OFF;						// red LED OFF
-}
-
-/*
- * decrease the duty cycle
- */
-void decreaseDC() {
-	if(TA1CCR1 > 40) {
-		TA1CCR1 -= 5;
-	}
-	updateSignal();
-
-	GREEN_OFF;						// green LED OFF
-	RED_ON	;						// red LED ON
-}
-
-/*
- * reset the duty cycle back to the original
- */
-void resetSignal() {
-	TA1CCR1 = 60;
-	TA1CCR2 = TA1CCR0-TA1CCR1;
-
-	GREEN_ON;						// green LED ON
-	RED_ON;							// red LED ON
 }

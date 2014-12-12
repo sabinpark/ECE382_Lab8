@@ -9,6 +9,8 @@ ECE382_Lab8
 | B | Complete | 11 Dec 14 @ 0700 | Dr. Coulston, Dr. York |
 | A | Complete | 11 Dec 14 @ 0700 | Dr. Coulston, Dr. York |
 
+A functionality may be viewd [here](http://youtu.be/e6VjWnEAKvg).
+
 ## Overview
 Use the previous laboratory assignments (both the robot and the code) to program my robot to autonomously navigate through a maze.
 

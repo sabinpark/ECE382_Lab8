@@ -196,5 +196,7 @@ N/A
 ## Competition
 Jeff 2.0 had his debut today in the ECE Robot Maze Competition. The competition consisted of going through the maze and exiting through Door #3. Though his practice run was a 10.48 seconds the other day, he still managed to pull off a 14.34 seconds for today's competition. I think Jeff 2.0 was a bit nervous and his hardware started to get a bit hot...but regardless, good job, Jeff 2.0!
 
+*UPDATE*: Jeff 2.0 tried the maze again with a slightly tweaked set of new instructions. His new time as of now is 12.24 seconds without touching any walls.
+
 ## Documentation
 * C2C Sean Bapty gave me advice to use my `stop()` methods in between other movement calls
